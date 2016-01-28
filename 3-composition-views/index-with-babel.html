@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Practice with Reactjs</title>
+    <script src="https://fb.me/react-0.14.6.js"></script>
+    <script src="https://fb.me/react-dom-0.14.6.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <style>
+      .container {
+        margin: 50px;
+        position: relative;
+      }
+      .target {
+        float: none;
+        margin: 0px auto;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 target">
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/babel">
+    // define component class
+    var Badge = React.createClass({
+      render: function() {
+        return <button className="btn btn-primary" type="button">
+          {this.props.title} <span className="badge">{this.props.number}</span>
+        </button>
+
+      }
+    });
+
+    var Thumbnail = React.createClass({
+      render: function() {
+        return <div className="thumbnail">
+          <img src={this.props.imageUrl} />
+          <div className="caption">
+            <h3>{this.props.header}</h3>
+            <p>{this.props.description}</p>
+            <p>
+              <Badge title={this.props.title} number={this.props.number}/>
+            </p>
+          </div>
+        </div>
+      }
+    });
+
+    var options = {
+      title: 'Tutorials',
+      number: 32,
+      header: 'Learn React',
+      description: 'Vivamus volutpat dolor quam, at malesuada neque viverra vel. Suspendisse potenti. Phasellus et nunc ut orci rhoncus dapibus. Proin in sem a nulla vulputate pulvinar. Suspendisse sagittis lacinia metus pharetra consectetur. Nullam diam dolor, tincidunt quis enim ac, semper rutrum diam.',
+      imageUrl: 'https://www.wagonhq.com/images/posts/react.png'
+    };
+
+    // render class
+    var element = React.createElement(Thumbnail, options);
+
+    // rendered element
+    ReactDOM.render(element, document.querySelector('.target'));
+
+  </script>
+
+
+</html>
