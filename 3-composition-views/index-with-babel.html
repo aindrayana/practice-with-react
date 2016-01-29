@@ -21,54 +21,70 @@
     </style>
   </head>
   <body>
-
     <div class="container">
-      <div class="row">
-        <div class="col-sm-6 target">
-        </div>
+      <div class="row target">
       </div>
     </div>
   </body>
 
   <script type="text/babel">
-    // define component class
-    var Badge = React.createClass({
-      render: function() {
-        return <button className="btn btn-primary" type="button">
-          {this.props.title} <span className="badge">{this.props.number}</span>
-        </button>
+      // define component class
+      var Badge = React.createClass({
+        render: function() {
+          return <button className="btn btn-primary" type="button">
+            {this.props.title} <span className="badge">{this.props.number}</span>
+          </button>
 
-      }
-    });
+        }
+      });
 
-    var Thumbnail = React.createClass({
-      render: function() {
-        return <div className="thumbnail">
-          <img src={this.props.imageUrl} />
-          <div className="caption">
-            <h3>{this.props.header}</h3>
-            <p>{this.props.description}</p>
-            <p>
-              <Badge title={this.props.title} number={this.props.number}/>
-            </p>
+      var Thumbnail = React.createClass({
+        render: function() {
+          return <div className="col-sm-6 col-md-4">
+            <div className="thumbnail">
+              <img src={this.props.imageUrl} />
+              <div className="caption">
+                <h3>{this.props.header}</h3>
+                <p>{this.props.description}</p>
+                <p><Badge title={this.props.title} number={this.props.number}/></p>
+              </div>
+            </div>
           </div>
-        </div>
-      }
-    });
+        }
+      });
 
-    var options = {
-      title: 'Tutorials',
-      number: 32,
-      header: 'Learn React',
-      description: 'Vivamus volutpat dolor quam, at malesuada neque viverra vel. Suspendisse potenti. Phasellus et nunc ut orci rhoncus dapibus. Proin in sem a nulla vulputate pulvinar. Suspendisse sagittis lacinia metus pharetra consectetur. Nullam diam dolor, tincidunt quis enim ac, semper rutrum diam.',
-      imageUrl: 'https://www.wagonhq.com/images/posts/react.png'
-    };
+      var ThumbnailList = React.createClass({
+        render: function(){
+          var list = this.props.thumbnailData.map(function(thumbnailProps){
+            return <Thumbnail {...thumbnailProps} />
+          });
+          return <div>
+            {list}
+          </div>
+        }
+      });
 
-    // render class
-    var element = React.createElement(Thumbnail, options);
+      var options = {
+        thumbnailData: [{
+          title: 'Tutorials',
+          number: 32,
+          header: 'Learn React',
+          description: 'Vivamus volutpat dolor quam, at malesuada neque viverra vel. Suspendisse potenti. Phasellus et nunc ut orci rhoncus dapibus. Proin in sem a nulla vulputate pulvinar. Suspendisse sagittis lacinia metus pharetra consectetur. Nullam diam dolor, tincidunt quis enim ac, semper rutrum diam.',
+          imageUrl: 'http://codrspace.com/site_media/media/b66d60cc1ec21.png'
+        }, {
+          title: 'Tutorials',
+          number: 15,
+          header: 'Learn Gulp',
+          description: 'Vivamus volutpat dolor quam, at malesuada neque viverra vel. Suspendisse potenti. Phasellus et nunc ut orci rhoncus dapibus. Proin in sem a nulla vulputate pulvinar. Suspendisse sagittis lacinia metus pharetra consectetur. Nullam diam dolor, tincidunt quis enim ac, semper rutrum diam.',
+          imageUrl: 'http://brunch.io/images/others/gulp.png'
+        }]
+      };
 
-    // rendered element
-    ReactDOM.render(element, document.querySelector('.target'));
+      // render class
+      var element = React.createElement(ThumbnailList, options);
+
+      // rendered element
+      ReactDOM.render(element, document.querySelector('.target'));
 
   </script>
 
